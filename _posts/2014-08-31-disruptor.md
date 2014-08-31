@@ -8,7 +8,7 @@ categories: java
 
 > Disruptor is a general-purpose mechanism for solving a difficult problem in concurrent programming.
 
-So, I think disruptor is a tool for builiding high-performance Java application.
+So, I think disruptor is a tool for building high-performance Java application.
 It's an immensely useful library. As a preface, you may read [Disruptor project on GitHub](http://lmax-exchange.github.io/disruptor/) or
 [Martin Fowler's review](http://martinfowler.com/articles/lmax.html).
 
@@ -69,3 +69,39 @@ public class ApprovedEventHandler implements
 }
 {% endhighlight %}
 
+Now, we will create a Main class to wire disruptor to EventHandler.
+
+{% highlight java %}
+import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.dsl.Disruptor;
+
+public class Main {
+
+  @SuppressWarnings("unchecked")
+  public static void main(String[] args) {
+
+    int bufferSize = 1024;
+
+    Executor executor = Executors.newCachedThreadPool();
+
+    Disruptor<ApprovedEvent> disruptor = new Disruptor<ApprovedEvent>(
+        ApprovedEvent.FACTORY, bufferSize, executor);
+
+    disruptor.handleEventsWith(new ApprovedEventHandler());
+
+    RingBuffer<ApprovedEvent> ringBuffer = disruptor.start();
+
+    for (int i = 0, size = ringBuffer.getBufferSize(); i < size ; i++) {
+      long sequence = ringBuffer.next();
+      try {			
+        System.out.println(sequence);
+        ApprovedEvent event = ringBuffer.get(sequence);
+        event.remarks = "Test " + i;
+      } finally {
+        ringBuffer.publish(sequence);
+      }
+    }
+  }
+}
+
+{% endhighlight %}
