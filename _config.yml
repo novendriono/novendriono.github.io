@@ -1,11 +1,22 @@
-# Site settings
-title: Gecken
-email: novendriono [at] gmail dot com 
-#description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
-description: "An awesome description ?!"
-baseurl: ""
-url: "http://novendriono.github.io"
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
 
-# Build settings
-markdown: kramdown
-permalink: pretty
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Gecken
+tagline:          Mati suri di taman
+url:              http://getpoole.com
+paginate:         1
+baseurl:          ""
+author:
+  name:           Novendriono
+  url:            https://twitter.com/novendriono
+  email:          novendriono@gmail.com
+
+# Custom vars
+version:          1.0.0
+github:
+  repo:           https://github.com/poole/poole
