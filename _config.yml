@@ -7,8 +7,8 @@ permalink:        pretty
 
 # Setup
 title:            Gecken
-tagline:          Mati suri di taman
-url:              http://getpoole.com
+tagline:          Mati suri di <a href="/about/">taman</a>
+url:              http://novendriono.github.io
 paginate:         1
 baseurl:          ""
 author:
